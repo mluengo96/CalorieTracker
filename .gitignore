@@ -14,3 +14,12 @@
 .cxx
 local.properties
 .idea/vcs.xml
+.idea/.name
+.idea/appInsightsSettings.xml
+.idea/deploymentTargetDropDown.xml
+.idea/misc.xml
+.idea/gradle.xml
+.idea/kotlinc.xml
+.idea/migrations.xml
+.idea/gradle.xml
+.idea/misc.xml
