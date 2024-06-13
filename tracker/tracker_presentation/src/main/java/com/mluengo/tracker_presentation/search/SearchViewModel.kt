@@ -10,11 +10,13 @@ import com.mluengo.core.util.UiEvent
 import com.mluengo.core.util.UiText
 import com.mluengo.tracker_domain.use_case.TrackerUseCases
 import com.plcoding.core.R
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class SearchViewModel @Inject constructor(
     private val trackerUseCases: TrackerUseCases,
     private val filterOutDigits: FilterOutDigits
