@@ -21,5 +21,4 @@ local.properties
 .idea/gradle.xml
 .idea/kotlinc.xml
 .idea/migrations.xml
-.idea/gradle.xml
-.idea/misc.xml
+.idea/other.xml
