@@ -53,7 +53,7 @@ class SearchViewModel @Inject constructor(
                 state = state.copy(
                     trackableFood = state.trackableFood.map {
                         if (it.food == event.food) {
-                            it.copy(isExpanded = it.isExpanded)
+                            it.copy(isExpanded = !it.isExpanded)
                         } else it
                     }
                 )
