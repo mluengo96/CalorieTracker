@@ -27,7 +27,21 @@ class TrackerRepositoryImpl(
                 page = page,
                 pageSize = pageSize
             )
-            Result.success(searchDto.products.mapNotNull { it.toTrackableFood() }) // Map model to Domain model
+            Result.success(
+                searchDto.products
+                    .filter {
+                        val calculatedCalories =
+                            it.nutriments.carbohydrates100g * 4f +
+                                    it.nutriments.proteins100g * 4f +
+                                    it.nutriments.fat100g * 9f
+                        val lowerBound = calculatedCalories * .99f
+                        val upperBound = calculatedCalories * 1.01f
+                        // If energy kcal are in range of the bounds,
+                        // the results of the API are properly calculated
+                        it.nutriments.energyKcal100g in (lowerBound..upperBound)
+                    }
+                    .mapNotNull { it.toTrackableFood() }
+            ) // Map model to Domain model
         } catch (e: Exception) {
             e.printStackTrace()
             Result.failure(e)

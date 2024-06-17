@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mluengo.core.domain.preferences.Preferences
 import com.mluengo.core.domain.usecase.FilterOutDigits
-import com.mluengo.core.navigation.Route
 import com.mluengo.core.util.UiEvent
 import com.mluengo.core.util.UiText
 import com.plcoding.core.R
@@ -48,7 +47,7 @@ class AgeViewModel @Inject constructor(
                 return@launch
             }
             preferences.saveAge(ageNumber)
-            _uiEvent.send(UiEvent.Navigate(Route.HEIGHT))
+            _uiEvent.send(UiEvent.Success)
         }
     }
 }
