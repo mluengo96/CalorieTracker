@@ -18,6 +18,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.mluengo.core.domain.preferences.Preferences
 import com.mluengo.core.navigation.Route
 import com.mluengo.onboarding_presentation.activity.ActivityScreen
 import com.mluengo.onboarding_presentation.age.AgeScreen
@@ -32,11 +33,17 @@ import com.mluengo.tracker_presentation.tracker_overview.TrackerOverviewScreen
 import com.plcoding.calorytracker.navigation.navigate
 import com.plcoding.calorytracker.ui.theme.CaloryTrackerTheme
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var preferences: Preferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val shouldShowOnboarding = preferences.loadShouldShowOnboarding()
         setContent {
             CaloryTrackerTheme {
                 val navController = rememberNavController()
@@ -47,7 +54,9 @@ class MainActivity : ComponentActivity() {
                 ) { it
                     NavHost(
                         navController = navController,
-                        startDestination = Route.WELCOME,
+                        startDestination = if (shouldShowOnboarding) {
+                            Route.WELCOME
+                        } else Route.TRACKER_OVERVIEW,
                     ) {
                         composable(Route.WELCOME) {
                             WelcomeScreen(onNavigate = navController::navigate)
@@ -114,7 +123,7 @@ class MainActivity : ComponentActivity() {
                             val mealName = it.arguments?.getString("mealName")!!
                             val dayOfMonth = it.arguments?.getInt("dayOfMonth")!!
                             val month = it.arguments?.getInt("month")!!
-                            val year = it.arguments?.getInt("mealName")!!
+                            val year = it.arguments?.getInt("year")!!
                             SearchScreen(
                                 scaffoldState = scaffoldState,
                                 mealName = mealName,

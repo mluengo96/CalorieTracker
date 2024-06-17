@@ -34,6 +34,7 @@ class TrackerOverviewViewModel @Inject constructor(
 
     // We don't show Onboarding in next app launches
     init {
+        refreshFoods()
         preferences.saveShouldShowOnboarding(false)
     }
 
